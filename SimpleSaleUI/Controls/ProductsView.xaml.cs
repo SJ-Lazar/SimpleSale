@@ -31,7 +31,7 @@ namespace SimpleSaleUI.Controls
         {
             using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
             {
-                products = _context.products.ToList();
+               
                 dgProducts.ItemsSource = products;
 
                 dgProducts.Columns[0].Header = "Name";

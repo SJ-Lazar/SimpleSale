@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleSalesDomain.Models
 {
-    public class Receipt
+    public class Receipt : DomainObject
     {
         public int SaleId { get; set; }
         [DisplayName("Amount Tendered ")]

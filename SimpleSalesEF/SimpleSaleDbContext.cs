@@ -13,7 +13,13 @@ namespace SimpleSalesEF
             optionsBuilder.UseSqlServer(@"Server =.\SQLEXPRESS; Database = SimpleSale; Trusted_Connection = True;");
         }
 
-        public DbSet<Product> products {get;set;}
+        public DbSet<Product> Products {get;set;}
+
+        public DbSet<ProductStock> ProductsStocks { get; set; }
+
+        public DbSet<Receipt> Receipts { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SalesItems { get; set; }
 
     }
 }
