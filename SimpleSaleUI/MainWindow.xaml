@@ -19,7 +19,7 @@
     
     <Border
         CornerRadius="25" 
-        Background="{StaticResource BrushPrimary2}" 
+        Background="{StaticResource BrushPrimary3}" 
         Padding="10">
         
         <DockPanel 

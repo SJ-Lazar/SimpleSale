@@ -39,6 +39,8 @@
                     Height="80"
                     Width="200"
                     Content="View Today's Sale"/>
+
+                <Button x:Name="btnTaxes"/>
             </StackPanel>
            
         </Grid>

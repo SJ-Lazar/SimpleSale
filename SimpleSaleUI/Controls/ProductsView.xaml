@@ -10,18 +10,20 @@
              d:DesignWidth="1000"
              FontSize="18"
              Background="{StaticResource BrushPrimary3}"
-             Foreground="white" Loaded="UserControl_Loaded">
-    <Grid>
+             Foreground="white">
+    
+    <Grid x:Name="gridWrapProducts">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        
-        <TextBlock  
+
+        <TextBlock x:Name="lblProductsTitle" 
             Grid.Row="0"           
             FontSize="28"
             Text="PRODUCTS"
@@ -29,28 +31,25 @@
             VerticalAlignment="Top"
             />
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="gridMainProducts"
+            Grid.Row="1">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
+            <TabControl x:Name="tabCtrlProducts"
+                Grid.Column="0" 
+                TabStripPlacement="Left">
 
-
-
-            <TabControl Grid.Column="0" TabStripPlacement="Left">
-
-                <TabItem Header="List"
-                         Padding="20">
-                    <DataGrid
-                         x:Name="dgProducts"
-                         Grid.Column="1"
-                         Margin="0 20 0 20" IsReadOnly="True">
-                    </DataGrid>
+                <TabItem Header="Index"
+                         Padding="20" >
+                   
                 </TabItem>
 
-                <TabItem Header="Search"
-                         Padding="20">
+                <TabItem x:Name="tabSearch" Header="Search"
+                         Padding="20" GotFocus="tabSearch_GotFocus">
                     <Grid>
                         <StackPanel>
                             <Grid 
@@ -71,7 +70,7 @@
                                         Width="50"/>
                                 </Button>
 
-                                <TextBox
+                                <TextBox x:Name="sbSearchProduct"
                                     Grid.Column="1"
                                     Margin="8 0 0 0"
                                     materialDesign:HintAssist.Hint="Search Product" 
@@ -79,77 +78,167 @@
                                     BorderThickness="0"
                                     Width="300"
                                     VerticalAlignment="Center"
-                                    FontSize="28"/>
+                                    FontSize="28" KeyUp="sbSearchProduct_KeyUp" />
                             </Grid>
 
+                            <Grid>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <Button x:Name="btnRefreshProductsGrid"
+                                        Height="50" Width="60"
+                                        Style="{DynamicResource MaterialDesignToolButton}" Click="btnRefreshProductsGrid_Click">
+                                        <materialDesign:PackIcon
+                                        Kind="Refresh"
+                                        
+                                        FontSize="30"
+                                        Height="40"
+                                        Width="50"/>
+                                    </Button>
+                                    <Button
+                                        Height="50" Width="60"
+                                        Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon
+                                        Kind="Pencil"
+                                        
+                                        FontSize="30"
+                                        Height="40"
+                                        Width="50"/>
+                                    </Button>
+                                    <Button
+                                        Height="50" Width="60"
+                                        Style="{DynamicResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon
+                                        Kind="Delete"
+                                        
+                                        FontSize="30"
+                                        Height="40"
+                                        Width="50"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            
                              <DataGrid
                                  x:Name="dgSearchedProducts"
                                  Grid.Column="1"
-                                 Margin="0 20 0 20" IsReadOnly="True">
-                             </DataGrid>
+                                 Margin="0 20 0 20" 
+                                 >
+                                
+                            </DataGrid>
 
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Create"
-                         Padding="20">
-                    <StackPanel>
+                
+                <TabItem x:Name="tabItemCreateProduct"
+                    Header="Create"
+                    Padding="20">
+                    
+                    <StackPanel x:Name="spnlCreateProductForm">
 
-                        <TextBox
+                        <TextBox x:Name="txtProductName"
                             Margin="20"
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
+                            Style="{StaticResource 
+                                        MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"                        
                             TextWrapping="Wrap"
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Name"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                        <TextBox
-                             Margin="20"
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                        />
+                        
+                        <TextBox x:Name="txtBarcode"
+                            Margin="20"
+                            Style="{StaticResource 
+                                        MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Barcode"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                        <TextBox
-                            
-                             Margin="20"
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                        />
+                        
+                        <TextBox x:Name="txtProductDescription"                            
+                            Margin="20"
+                            Style="{StaticResource 
+                                        MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Description"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                        <TextBox
-                             Margin="20"
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                        />
+                        
+                        <TextBox x:Name="txtProductPurchasePrice"
+                            Margin="20"
+                            Style="{StaticResource 
+                                        MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Purchase Price"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
+                        />
+                        
+                        <TextBox x:Name="txtProductSellingPrice"
+                            Margin="20"
+                            Style="{StaticResource 
+                                        MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"              
+                            TextWrapping="Wrap"
+                            MaxWidth="400"
+                            materialDesign:HintAssist.Hint="Product Selling Price"
+                        />
 
-
-                        <Button     
+                        <Button x:Name="btnCreateNewProduct"     
                             Margin="10"
                             Height="70"
                             Width="200"
                             FontSize="18"
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            Content="Create New Product"/>
+                            Content="Create New Product" 
+                            Click="btnCreateNewProduct_Click"
+                        />
 
                     </StackPanel>
+                    
                 </TabItem>
 
-                <TabItem Header="Update"
-                         Padding="20">
-                    <StackPanel>
+                <TabItem x:Name="tabItemUpdateProduct"
+                    Header="Update"
+                    Padding="20">
+                    
+                    <Grid x:Name="GridUpdateProduct">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                        <TextBox
+                        <StackPanel  x:Name="spnl"
+                            Grid.Column="0">
+                            
+                            <TextBox x:Name="txtGetBarcode"
+                                Margin="20"
+                                Style="{StaticResource 
+                                            MaterialDesignFilledTextFieldTextBox}"
+                                VerticalAlignment="Top"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                MaxWidth="400"
+                                materialDesign:HintAssist.Hint="Product Barcode To Update"
+                            />
+
+                            <Button x:Name="btnFetchedProduct"    
+                            Margin="10"
+                            Height="70"
+                            Width="200"
+                            FontSize="18"
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            Content="Get Product" Click="btnFetchedProduct_Click" />
+
+                            
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBox x:Name="txtUpdateProductName"
                             Margin="20"
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
@@ -158,8 +247,8 @@
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Name"
                             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                        
-                        <TextBox
+
+                            <TextBox x:Name="txtUpdateProductDescription"
                             
                             Margin="20"
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
@@ -169,38 +258,163 @@
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Description"
                             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                        <TextBox
-                            Margin="20"
+                            <TextBox x:Name="txtUpdateProductPurchasePrice"
+                             Margin="20"
                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                             VerticalAlignment="Top"
                             AcceptsReturn="True"
                             TextWrapping="Wrap"
                             MaxWidth="400"
                             materialDesign:HintAssist.Hint="Product Purchase Price"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
+                            IsEnabled="{Binding Path=IsChecked,ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
 
+                            <TextBox x:Name="txtUpdateProductSellingPrice"
+                             Margin="20"
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            MaxWidth="400"
+                            materialDesign:HintAssist.Hint="Product Selling Price"
+                            IsEnabled="{Binding Path=IsChecked,ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
 
-                        <Button    
+                            <Button x:Name="btnUpdateProduct"    
                             Margin="10"
                             Height="70"
                             Width="200"
                             FontSize="18"
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            Content="Update Product"/>
+                            Content="Update Product" Click="btnUpdateProduct_Click"/>
 
-                    </StackPanel>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
                 </TabItem>
 
-               
+                <TabItem
+                    Header="Delete">
 
+                    <Grid>
+                        <StackPanel>
+                            <TextBox x:Name="txtGetDeleteBarcode"
+                            Margin="20"
+                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            MaxWidth="400"
+                            materialDesign:HintAssist.Hint="Product Barcode To Delete"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
 
+                            <Button
+                                x:Name="btnGetProductToDelete"
+                                Width="200"
+                                Height="60" Click="btnGetProductToDelete_Click">
+                                Get Product
+                            </Button>
 
+                            <TextBlock 
+                                x:Name="lblDeleteInFoName"
+                                Margin="20"       
+                                Text=""/>
+                            <TextBlock 
+                                x:Name="lblDeleteInFoBarcode"
+                                Margin="20"       
+                                Text=""/>
+                            
+
+                            <Button
+                                x:Name="btnDeleteProduct"
+                                Width="200"
+                                Height="60"
+                                Content="Delete" Click="btnDeleteProduct_Click">
+                                
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    
+                    
+                </TabItem>
+
+                <TabItem Header="Tax">
+                    <Grid>
+                        <StackPanel Margin="0 120 0 0">
+
+                            <TextBox x:Name="txtVatName"
+                                Margin="20"
+                                Style="{StaticResource 
+                                    MaterialDesignFilledTextFieldTextBox}"        
+                                TextWrapping="Wrap"
+                                MaxWidth="400"
+                                materialDesign:HintAssist.Hint="Enter VAT Name"
+                            />
+
+                            <TextBox x:Name="txtVatValue"
+                            Margin="20"
+                                Style="{StaticResource 
+                                    MaterialDesignFilledTextFieldTextBox}"        
+                                TextWrapping="Wrap"
+                                MaxWidth="400"
+                                materialDesign:HintAssist.Hint="Enter Tax Value"
+                            />
+                            <Button x:Name="btnAddVat"     
+                                Margin="10"
+                                Height="70"
+                                Width="200"
+                                FontSize="18"
+                                materialDesign:ButtonAssist.CornerRadius="25"
+                                Content="Add VAT" Click="btnAddVat_Click" 
+                            />
+                            
+                        </StackPanel>
+                    </Grid>
+                    
+                </TabItem>
+                
+                <TabItem Header="Discount">
+
+                    <Grid>
+
+                        <StackPanel Margin="0 120 0 0">
+
+                            <TextBox x:Name="txtDiscountName"
+                                Margin="20"
+                                Style="{StaticResource 
+                                    MaterialDesignFilledTextFieldTextBox}"        
+                                TextWrapping="Wrap"
+                                MaxWidth="400"
+                                materialDesign:HintAssist.Hint="Enter Discount Name"
+                            />
+
+                            <TextBox x:Name="txtDicountValue"
+                                Margin="20"
+                                Style="{StaticResource 
+                                    MaterialDesignFilledTextFieldTextBox}"        
+                                TextWrapping="Wrap"
+                                MaxWidth="400"
+                                materialDesign:HintAssist.Hint="Enter Discount Value"
+                             />
+
+                            <Button x:Name="btnAddDiscount"     
+                                Margin="10"
+                                Height="70"
+                                Width="200"
+                                FontSize="18"
+                                materialDesign:ButtonAssist.CornerRadius="25"
+                                Content="Add Discount" 
+                             />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </TabItem>
+                
             </TabControl>
-            
-            
-            
-            
+          
         </Grid>
             
     </Grid>
+    
 </UserControl>

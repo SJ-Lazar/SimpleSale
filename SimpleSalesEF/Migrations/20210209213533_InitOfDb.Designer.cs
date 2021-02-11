@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSalesEF;
 
 namespace SimpleSalesEF.Migrations
 {
     [DbContext(typeof(SimpleSaleDbContext))]
-    partial class SimpleSaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210209213533_InitOfDb")]
+    partial class InitOfDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,36 +49,6 @@ namespace SimpleSalesEF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Discounts");
-                });
-
-            modelBuilder.Entity("SimpleSalesDomain.Models.DiscountProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DiscountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserCreated")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserModified")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DiscountOnProducts");
                 });
 
             modelBuilder.Entity("SimpleSalesDomain.Models.Product", b =>
@@ -222,29 +194,14 @@ namespace SimpleSalesEF.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Barcode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Item")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ItemsPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PriceVat")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -255,7 +212,7 @@ namespace SimpleSalesEF.Migrations
                     b.Property<int>("SaleId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice")
+                    b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserCreated")
@@ -350,9 +307,6 @@ namespace SimpleSalesEF.Migrations
 
                     b.Property<int>("UserModified")
                         .HasColumnType("int");
-
-                    b.Property<string>("VATName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("VATValue")
                         .HasColumnType("decimal(18,2)");

@@ -6,7 +6,7 @@
                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SimpleSaleUI.Controls"
              mc:Ignorable="d" 
-             Background="{StaticResource BrushPrimary1}"
+             
              Foreground="White"
              d:DesignHeight="700" 
              d:DesignWidth="1000">
@@ -63,50 +63,38 @@
             <Grid 
                 Grid.Column="0">
                 <StackPanel>
-                    <TextBox
-                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                    VerticalAlignment="Top"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    MaxWidth="400"
-                    materialDesign:HintAssist.Hint="Enter Barcode"
-                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
+
+                    <TextBox x:Name="txtgetAddItemToCartBarcode"
+                        Margin="10 50 10 0"
+                        Style="{StaticResource
+                            MaterialDesignFilledTextFieldTextBox}"
+                        VerticalAlignment="Top"                       
+                        TextWrapping="Wrap"
+                        MaxWidth="400"
+                        materialDesign:HintAssist.Hint="Enter Barcode"
+                    />
 
                     <Button x:Name="btnAddItemToCartUsingBarcode"
-                            Content="Add Item To Cart"
-                            Margin="0 0 0 20"/>
+                        Content="Add Item To Cart"
+                        Margin="10 0 10 20" 
+                        Height="60"
+                        Click="btnAddItemToCartUsingBarcode_Click"
+                    />
 
-                    <TextBlock Text="Selet Product From List"/>
+                  
+
                     
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            
-                             <CheckBox
-                                x:Name="MaterialDesignFilledComboBoxEnabledComboBox"
-                                IsChecked="True"
-                                Margin="0,0,0,8"
-                                />
-                             <Button
-                                 
-                              Content="Clear"
-                              Style="{StaticResource MaterialDesignFlatButton}"
-                              HorizontalAlignment="Right"
-                              Grid.Column="1"
-                              />
-                            
-                        </Grid>
-                    
-                        <ComboBox
-                            Style="{StaticResource MaterialDesignFilledComboBox}"
-                            x:Name="FilledComboBox"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+
+                    <ComboBox
+                            Style="{StaticResource 
+                                            MaterialDesignFilledComboBox}"
+                            x:Name="cbSaleItems"
+                            IsEnabled="{Binding Path=IsChecked, 
+                                            ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
                             materialDesign:HintAssist.Hint="Item"
-                            Width="200">
-                        </ComboBox>
-                    
+                            Width="200"  GotFocus="cbSaleItems_GotFocus">
+                    </ComboBox>
+
 
                 </StackPanel>
             </Grid>
@@ -114,15 +102,100 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="170"/>
                 </Grid.RowDefinitions>
-                <DataGrid>
+
+                <StackPanel>
                     
-                </DataGrid>
+                    <DataGrid   
+                        x:Name="dgSaleItem" 
+                        AutoGenerateColumns="False">
+                        <DataGrid.CellStyle>
+                            <Style/>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+                            <materialDesign:DataGridTextColumn Header="Barcode" Binding="{Binding Barcode}"/>
+                            <materialDesign:DataGridTextColumn Header="Item" Binding="{Binding Item}" />
+                            <materialDesign:DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}"/>
+                            <materialDesign:DataGridTextColumn Header="Discount" Binding="{Binding Discount}"/>
+                            <materialDesign:DataGridTextColumn Header="Price(vat)" Binding="{Binding PriceVat}"/>
+                            <materialDesign:DataGridTextColumn Header="Qty" Binding="{Binding Quantity}"/>
+                            <materialDesign:DataGridTextColumn Width="*" Header="Items Price" Binding="{Binding ItemsPrice}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+               
+                </StackPanel>
 
-                <DataGrid Grid.Row="1">
+                <StackPanel Grid.Row="1">
 
-                </DataGrid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+
+                        <TextBox Grid.Row="0"
+                        Text="SubTotal : "
+                        Height="50"
+                        HorizontalAlignment="Right"                  
+                        Style="{StaticResource MaterialDesignTextBoxBase}"
+                        TextWrapping="Wrap"
+                        Width="100"/>
+                        <TextBox Grid.Row="1"
+                        Text="VAT Total :"
+                        Height="50"
+                        HorizontalAlignment="Right"                  
+                        Style="{StaticResource MaterialDesignTextBoxBase}"
+                        TextWrapping="Wrap"
+                        Width="100"/>
+                        <TextBox Grid.Row="2"
+                        Text="Total :"
+                        Height="50"
+                        HorizontalAlignment="Right"                  
+                        Style="{StaticResource MaterialDesignTextBoxBase}"
+                        TextWrapping="Wrap"
+                        Width="100"/>
+
+                        <TextBox 
+                            Grid.Row="0" 
+                            Grid.Column="1"
+                            x:Name="txtSaleSubTotal"
+                            Height="50"
+                            HorizontalAlignment="Right"                  
+                            Style="{StaticResource MaterialDesignTextBoxBase}"
+                            TextWrapping="Wrap"
+                            Width="300"/>
+                        <TextBox
+                            Grid.Row="1"  
+                            Grid.Column="1"
+                            x:Name="txtSaleTotalVAT"
+                            Height="50"
+                            HorizontalAlignment="Right"                  
+                            Style="{StaticResource MaterialDesignTextBoxBase}"
+                            TextWrapping="Wrap"
+                            Width="300"/>
+                        <TextBox 
+                            Grid.Row="2"  
+                            Grid.Column="1"
+                            x:Name="txtSaleTotal"
+                            Height="50"
+                            HorizontalAlignment="Right"                  
+                            Style="{StaticResource MaterialDesignTextBoxBase}"
+                            TextWrapping="Wrap"
+                            Width="300"/>
+
+                    </Grid>
+                    
+                   
+                </StackPanel>
+                
             </Grid>
 
             <Grid Grid.Column="2">
@@ -131,33 +204,47 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
-                <DataGrid
-                    Margin="20">
-                    
-                </DataGrid>
 
-               
-                  
-                    <TextBox Grid.Row="1" Margin="10"
-                        Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                        VerticalAlignment="Top"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        MaxWidth="400"
-                        Height="200"
-                        materialDesign:HintAssist.Hint="Amount Tendred"
-                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}" />
-                
 
-                <Button 
+
+                <TextBox 
+                    Grid.Row="0" 
+                    x:Name="txtSaleGrandTotal"
+                    Margin="10"
+                    Style="{StaticResource 
+                                 MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    MaxWidth="400"
+                    Height="200"
+                    materialDesign:HintAssist.Hint="Total"
+                    />
+
+
+
+
+                <TextBox x:Name="txtAmountTendred"
+                    Grid.Row="1" Margin="10"
+                    Style="{StaticResource 
+                                MaterialDesignFilledTextFieldTextBox}"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    MaxWidth="400"
+                    Height="200"
+                    materialDesign:HintAssist.Hint="Amount Tendred"
+                 />
+
+
+                <Button x:Name="btnPay"
                         Grid.Row="2"
                         Margin="10"
                         Height="120"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         FontSize="50"
-                        Content ="Pay">
-                    
+                        Content ="Pay" Click="btnPay_Click">
+
                 </Button>
             </Grid>
 
