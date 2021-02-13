@@ -10,8 +10,8 @@ using SimpleSalesEF;
 namespace SimpleSalesEF.Migrations
 {
     [DbContext(typeof(SimpleSaleDbContext))]
-    [Migration("20210210125254_AddedDiscountProductTabel")]
-    partial class AddedDiscountProductTabel
+    [Migration("20210211133136_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,14 +224,29 @@ namespace SimpleSalesEF.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Barcode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ItemsPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PriceVat")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -242,7 +257,7 @@ namespace SimpleSalesEF.Migrations
                     b.Property<int>("SaleId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("SalePrice")
+                    b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserCreated")
@@ -337,6 +352,9 @@ namespace SimpleSalesEF.Migrations
 
                     b.Property<int>("UserModified")
                         .HasColumnType("int");
+
+                    b.Property<string>("VATName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("VATValue")
                         .HasColumnType("decimal(18,2)");

@@ -353,10 +353,11 @@
                             <TextBox x:Name="txtVatValue"
                             Margin="20"
                                 Style="{StaticResource 
-                                    MaterialDesignFilledTextFieldTextBox}"        
+                                    MaterialDesignFilledTextFieldTextBox}"   
+                              
                                 TextWrapping="Wrap"
                                 MaxWidth="400"
-                                materialDesign:HintAssist.Hint="Enter Tax Value"
+                                materialDesign:HintAssist.Hint="Enter Tax Value" KeyDown="txtVatValue_KeyDown" TextChanged="txtVatValue_TextChanged"
                             />
                             <Button x:Name="btnAddVat"     
                                 Margin="10"
@@ -402,7 +403,7 @@
                                 Width="200"
                                 FontSize="18"
                                 materialDesign:ButtonAssist.CornerRadius="25"
-                                Content="Add Discount" 
+                                Content="Add Discount" Click="btnAddDiscount_Click" 
                              />
 
                         </StackPanel>

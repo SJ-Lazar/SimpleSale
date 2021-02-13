@@ -32,7 +32,6 @@ namespace SimpleSaleUI.Controls
 
         #endregion
 
-
         #region Methods
 
         public void PopulateDataGridWithProductsList()
@@ -55,9 +54,7 @@ namespace SimpleSaleUI.Controls
                 dgSearchedProducts.Columns[8].Visibility = Visibility.Collapsed;
                 dgSearchedProducts.Columns[9].Visibility = Visibility.Collapsed;
             }
-
         }
-
         public void CreateNewProduct()
         {
             using (SimpleSaleDbContext _contex = new SimpleSaleDbContext())
@@ -92,7 +89,6 @@ namespace SimpleSaleUI.Controls
                 }
             }
         }
-
         public bool GetUpdateProduct()
         {
             bool IsVaild = false;
@@ -120,7 +116,6 @@ namespace SimpleSaleUI.Controls
                 }
             }
         }
-
         public void SearchProducts()
         {
             using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
@@ -143,7 +138,6 @@ namespace SimpleSaleUI.Controls
                 dgSearchedProducts.Columns[9].Visibility = Visibility.Collapsed;
             }
         }
-
         public void UpdateProduct()
         {
             using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
@@ -168,7 +162,6 @@ namespace SimpleSaleUI.Controls
                 MessageBox.Show("Product Successfully Updated");
             }
         }
-
         public void GetProductToDelete()
         {
             using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
@@ -195,17 +188,40 @@ namespace SimpleSaleUI.Controls
                 MessageBox.Show("Product Successfully Deleted!!!");
             }
         }
-
         public void AddNewVat()
         {
             using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
             {
+                ValueAddedTax vat = new ValueAddedTax();
 
+                vat.VATName = txtVatName.Text.ToString();
+                vat.VATValue = Convert.ToDecimal(txtVatValue.Text.ToString());
+
+                _context.ValueAddedTaxes.Add(vat);
+                _context.SaveChanges();
+                txtVatName.Clear();
+                txtVatValue.Clear();
+                MessageBox.Show("VAT Successfully Added To Table", "VAT");
+            }
+        }
+        public void AddNewDicount()
+        {
+            using (SimpleSaleDbContext _context = new SimpleSaleDbContext())
+            {
+                Discount discount = new Discount();
+
+                discount.DiscountName = txtDiscountName.Text.ToString();
+                discount.DiscountValue = decimal.Parse(txtDicountValue.Text);
+
+                _context.Discounts.Add(discount);
+
+                txtDiscountName.Clear();
+                txtDicountValue.Clear();
+                MessageBox.Show("Discount Successfully Added To Table", "Discount");
             }
         }
 
         #endregion
-
 
         #region Events
 
@@ -254,7 +270,21 @@ namespace SimpleSaleUI.Controls
             AddNewVat();
         }
 
+        private void btnAddDiscount_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewDicount();
+        }
+
         #endregion
 
+        private void txtVatValue_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+
+        private void txtVatValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string.Format("{0:P2}", txtVatValue.Text.ToString());
+        }
     }
 }

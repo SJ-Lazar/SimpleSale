@@ -52,11 +52,6 @@ namespace SimpleSaleUI
                     ProductsView productsView = new ProductsView();
                     uc = productsView;
                 }
-                else if (view == "Sales")
-                {
-                    SalesView salesView = new SalesView();
-                    uc = salesView;
-                }
                 else
                 {
                     MessageBox.Show("View Not Reconized, View");

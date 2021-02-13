@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:SimpleSaleUI"
+        xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d" 
         FontSize="18" 
         ResizeMode="NoResize" 
@@ -26,44 +27,39 @@
             >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid 
                     Grid.Column="0" 
-                    Width="250" 
+                    Width="180" 
                     >
                     <StackPanel 
                         Height="auto"
                         Margin="0 0 5 0">
                         <Button x:Name="btnHome"
-                                Height="80" 
+                                Height="60" 
                                 Content="Home" 
                                 materialDesign:ButtonAssist.CornerRadius="25"
                                 Margin="10 55 0 10" Click="btnHome_Click"
-                                Background="{StaticResource BrushPrimary3}"
+                               
                                 />
                         <Button x:Name="btnTransaction"
-                                Height="80"
+                                Height="60"
                                 Content="Transaction" 
                                 materialDesign:ButtonAssist.CornerRadius="25"
                                 Margin="15 10 0 10" Click="btnTransaction_Click"
                                 />
                         <Button x:Name="btnProducts"
-                                Height="80" 
+                                Height="60" 
                                 Content="Products" 
                                 materialDesign:ButtonAssist.CornerRadius="25"
                                 Margin="15 10 0 10" Click="btnProducts_Click"
                                 />
-                        <Button x:Name="btnSales"
-                                Height="80" 
-                                Content="Sales" 
-                                materialDesign:ButtonAssist.CornerRadius="25"
-                                Margin="15 10 0 10" Click="btnSales_Click"
-                                />
+                        
                         <Button x:Name="btnClose"
-                                Height="80" 
+                                Height="60" 
                                 Content="Close" 
                                 materialDesign:ButtonAssist.CornerRadius="25"
                                 Margin="15 10 0 10" Click="btnClose_Click"

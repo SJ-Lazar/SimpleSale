@@ -3,10 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimpleSalesEF.Migrations
 {
-    public partial class InitOfDb : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "DiscountOnProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: false),
+                    UserCreated = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserModified = table.Column<int>(type: "int", nullable: false),
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscountOnProducts", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Discounts",
                 columns: table => new
@@ -112,8 +130,13 @@ namespace SimpleSalesEF.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     ValueAddedTaxId = table.Column<int>(type: "int", nullable: false),
                     DiscountId = table.Column<int>(type: "int", nullable: false),
-                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Item = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PriceVat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    ItemsPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserCreated = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserModified = table.Column<int>(type: "int", nullable: false),
@@ -166,6 +189,7 @@ namespace SimpleSalesEF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    VATName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VATValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserCreated = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -180,6 +204,9 @@ namespace SimpleSalesEF.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "DiscountOnProducts");
+
             migrationBuilder.DropTable(
                 name: "Discounts");
 
